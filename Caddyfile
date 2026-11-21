@@ -1,0 +1,43 @@
+{
+	# admin API를 켜두면 GET /config/ 응답에 admin_password가 평문으로 그대로 노출됨
+	admin off
+	auto_https off
+}
+
+:80 {
+	log {
+		output stdout
+		format json {
+			time_format rfc3339
+			time_local
+		}
+	}
+
+	handle /health {
+		log_skip
+		respond 200
+	}
+
+	route {
+		vars svc "{$SVC}"
+		vars ns "{$NS}"
+
+		# frp 터널이 살아있으면 로컬 개발 서버로, 아니면 아래 기본 upstream으로 폴백
+		@frp frp_online {
+			admin_api "{$FRP_ADMIN_API}"
+			admin_user "{$FRP_ADMIN_USER}"
+			admin_password "{$FRP_ADMIN_PASSWORD}"
+			sub_domain_host "{$FRP_SUB_DOMAIN_HOST}"
+			sub_domain {vars.svc}--{vars.ns}
+			refresh 10s
+			timeout 3s
+		}
+		handle @frp {
+			reverse_proxy "{$FRP_VHOST}" {
+				header_up Host "{vars.svc}--{vars.ns}.{$FRP_SUB_DOMAIN_HOST}"
+			}
+		}
+
+		reverse_proxy "{$UPSTREAM}"
+	}
+}
