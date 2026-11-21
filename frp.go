@@ -1,6 +1,6 @@
 // Package caddyfrp는 frps admin API를 조회해 frp 터널이 online일 때만 매치되는 request matcher를 제공한다.
 //
-// 빌드: GOOS=linux GOARCH=arm64 xcaddy build --with github.com/dgdsingen/caddy-frps=.
+// 빌드: GOOS=linux GOARCH=arm64 xcaddy build --with github.com/dgdsingen/caddy-frp=.
 package caddyfrp
 
 import (

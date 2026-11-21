@@ -1,4 +1,4 @@
-# caddy-frps
+# caddy-frp
 
 ## 목표
 
@@ -10,8 +10,8 @@ Caddy가 k8s Service로 보내던 트래픽을, 개발자가 로컬 서버를 fr
 
 ## 기준 버전
 
-- Go 1.26.7, Caddy v2.11.9, frp v0.72.0 (v0.71.0 에서도 E2E 통과)
-- module: `github.com/dgdsingen/caddy-frps`
+- Go 1.27, Caddy v2.11.9, frp v0.72.0 (v0.71.0 에서도 E2E 통과)
+- module: `github.com/dgdsingen/caddy-frp`
 
 ## 파일
 
@@ -73,7 +73,7 @@ handle @frp {
 go vet ./... && gofmt -l .
 go test ./... -count=1 -race
 FRP_BIN_DIR=/path/to/frp-0.72.0 go test ./... -count=1 -run TestEndToEnd -v
-xcaddy build v2.11.9 --with github.com/dgdsingen/caddy-frps=.
+xcaddy build v2.11.9 --with github.com/dgdsingen/caddy-frp=.
 ```
 
 - `TestEndToEnd` 는 frps/frpc 를 `FRP_BIN_DIR` 또는 PATH 에서 찾고, 없으면 skip 한다

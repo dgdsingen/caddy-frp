@@ -1,4 +1,4 @@
-module github.com/dgdsingen/caddy-frps
+module github.com/dgdsingen/caddy-frp
 
 go 1.27
 
