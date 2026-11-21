@@ -1,6 +1,6 @@
 module github.com/dgdsingen/caddy-frps
 
-go 1.26.7
+go 1.27
 
 require (
 	github.com/caddyserver/caddy/v2 v2.11.9
